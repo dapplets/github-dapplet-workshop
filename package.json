@@ -1,23 +1,22 @@
 {
-  "name": "example8.dapplet-base.eth",
-  "version": "0.2.0",
-  "description": "Ex08: New Site specific adapter",
-  "main": "index.js",
+  "name": "github-dapplet-repo.dapplet-base.eth",
+  "version": "0.1.0",
+  "description": "Github Dapplet Repository",
+  "author": "Dapplets Project",
+  "homepage": "https://dapplets.org",
+  "license": "MIT",
   "scripts": {
-    "postinstall": "concurrently -c \"yellow,magenta\" -n \"adapter,dapplet\" \"cd adapter && npm i\" \"cd dapplet-feature && npm i\"",
-    "start": "concurrently -c \"yellow,magenta\" -n \"adapter,dapplet\" \"cd adapter && npm start\" \"cd dapplet-feature && npm start\"",
+    "postinstall": "concurrently -c \"yellow,magenta,blue,green\" -n \"adapter,dapplet,overlay,contract\" \"cd adapter && npm i\" \"cd dapplet-feature && npm i\" \"cd overlay && npm i\" \"cd near-contract && npm i\"",
+    "start": "concurrently -c \"yellow,magenta,blue\" -n \"adapter,dapplet,overlay\" \"cd adapter && npm start\" \"cd dapplet-feature && npm start\" \"cd overlay && npm start\"",
     "prettify": "npx prettier --write .",
     "lint": "npx eslint ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dapplets/dapplet-template.git"
+    "url": "git+https://github.com/dapplets/github-dapplet-workshop.git"
   },
-  "author": "Dapplets Project",
-  "homepage": "https://github.com/dapplets/dapplet-template#readme",
-  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dapplets/dapplet-template/issues"
+    "url": "https://github.com/dapplets/github-dapplet-workshop/issues"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.11.0",
