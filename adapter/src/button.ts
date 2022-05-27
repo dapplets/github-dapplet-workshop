@@ -28,7 +28,7 @@ export class Button extends LitElement implements IButtonProps {
         }
         .dapplet-widget-results > img {
             width: 20px;
-            margin-right: 1em;
+            margin-right: 5px;
             margin-bottom: 3px;
         }
         .dapplet-widget-results > div {
@@ -43,10 +43,8 @@ export class Button extends LitElement implements IButtonProps {
             text-decoration-color: #f5504a;
         }
         :host {
-            border: 1px solid rgb(170, 170, 170);
             display: table;
-            padding: 2px 10px;
-            border-radius: 4px;
+            padding: 2px 10px 2px 20px;
         }
     `;
     

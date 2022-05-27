@@ -9,7 +9,7 @@ const DappletState = dappletState(App);
 
 ReactDOM.render(
   // <React.StrictMode>
-  <App />,
+  <DappletState />,
   //</React.StrictMode>,
   document.getElementById('root'),
 );

@@ -1,6 +1,11 @@
 import { } from '@dapplets/dapplet-extension';
 import EXAMPLE_IMG from './icons/ex08.png';
 
+interface Storage {
+  likes: string[]
+  counter: number
+}
+
 @Injectable
 export default class GoogleFeature {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
@@ -8,7 +13,7 @@ export default class GoogleFeature {
 
   activate(): void {
     const { button } = this.adapter.exports;
-    const state = Core.state({ counter: 0, text: '' });
+    const state = Core.state<Storage>({ likes: [], counter: 0 });
     const overlay = Core.overlay({ name: 'github-dapplet-overlay', title: 'GitHub Dapplet' })
       .useState(state);
 
@@ -19,18 +24,22 @@ export default class GoogleFeature {
         button({
           initial: 'DEFAULT',
           DEFAULT: {
-            label: 'Hi',
+            label: state[ctx.id].counter,
             img: EXAMPLE_IMG,
             tooltip: 'Hi, friend!',
-            isActive: false,
-            exec: (_, me) => { },
-          },
-          FRIENDS: {
-            label: 'Hi',
-            img: EXAMPLE_IMG,
-            tooltip: 'Go to default',
-            isActive: true,
-            exec: (_, me) => { },
+            // isActive: false,
+            exec: (_, me) => {
+              const { likes, counter } = state[ctx.id];
+              if (likes.value.includes('name')) {
+                const newValue = likes.value.filter(x => x !== 'name');
+                likes.next(newValue);
+                counter.next(counter.value - 1);
+              } else {
+                const newValue = [...likes.value, 'name'];
+                likes.next(newValue);
+                counter.next(counter.value + 1);
+              }
+            },
           },
         }),
     });

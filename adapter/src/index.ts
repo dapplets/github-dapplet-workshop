@@ -16,22 +16,22 @@ export default class GitHubAdapter {
   });
   public config = {
     ISSUE: {
-      containerSelector: '#search',
-      contextSelector: '#rso > .g .jtfYYd, #rso > div > .g .jtfYYd, #rso > div > div > .g .jtfYYd',
+      containerSelector: '.js-discussion.js-socket-channel',
+      contextSelector: '.TimelineItem.js-comment-container',
       insPoints: {
-        SEARCH_RESULT: {
-          selector: '.yuRUbf',
-          insert: 'inside',
+        ISSUE: {
+          selector: '.timeline-comment-actions',
+          insert: 'end'
         },
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       contextBuilder: (searchNode: any): ContextBuilder => ({
-        id: searchNode.querySelector('.yuRUbf > a')?.href,
-        title: searchNode.querySelector('h3')?.textContent,
-        link: searchNode.querySelector('.yuRUbf > a')?.href,
-        description:
-          searchNode.querySelector('.uUuwM')?.textContent ||
-          searchNode.querySelector('.IsZvec')?.textContent,
+        id: searchNode.querySelector('.timeline-comment-group')?.id,
+        // title: searchNode.querySelector('h3')?.textContent,
+        // link: searchNode.querySelector('.yuRUbf > a')?.href,
+        // description:
+        //   searchNode.querySelector('.uUuwM')?.textContent ||
+        //   searchNode.querySelector('.IsZvec')?.textContent,
       }),
     },
   };
