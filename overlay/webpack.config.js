@@ -26,12 +26,19 @@ module.exports = {
                 include: path.resolve(__dirname, 'src')
             },
             {
-                test: /\.css$/,
-                use: ["style-loader", "css-loader"]
+                test: [/\.css$/, /\.s[ac]ss$/i],
+                use: ["style-loader", "css-loader",  "sass-loader"]
             },
             {
                 test: [/\.eot$/, /\.ttf$/, /\.woff$/, /\.woff2$/, /\.svg$/, /\.png$/, /\.jpg$/],
-                use: 'file-loader'
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                          name: 'images/[hash]-[name].[ext]',
+                        },
+                    }
+                ]
             }
         ],
     },

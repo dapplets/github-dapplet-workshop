@@ -1,14 +1,11 @@
 {
   "main": {
-    "exampleString": "some string value",
-    "exampleHiddenString": "some string value"
+    "show my id": "yes"
   },
   "test": {
-    "exampleString": "some string value",
-    "exampleHiddenString": "some string value"
+    "show my id": "yes"
   },
   "dev": {
-    "exampleString": "some string value",
-    "exampleHiddenString": "some string value"
+    "show my id": "yes"
   }
 }

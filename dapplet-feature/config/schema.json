@@ -1,15 +1,14 @@
 {
   "type": "object",
-  "required": ["exampleString", "exampleHiddenString"],
+  "required": ["show my id"],
   "properties": {
-    "exampleString": {
+    "show my id": {
       "type": "string",
-      "title": "Example of string property"
-    },
-    "exampleHiddenString": {
-      "type": "string",
-      "title": "Example of hidden string property",
-      "hidden": true
+      "title": "Show my ID",
+      "enum": [
+        "yes",
+        "no"
+      ]
     }
   }
 }
