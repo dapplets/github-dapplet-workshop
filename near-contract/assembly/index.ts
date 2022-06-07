@@ -1,56 +1,51 @@
-import { PersistentUnorderedMap, Context } from 'near-sdk-core';
+import { PersistentUnorderedMap, MapEntry, Context } from 'near-sdk-core';
 
 // MODELS
 
-const externalByNear = new PersistentUnorderedMap<string, string[]>('a');
-const nearByExternal = new PersistentUnorderedMap<string, string[]>('b');
+const accountsByCommentId = new PersistentUnorderedMap<string, string[]>('m');
 
 // READ
 
 /**
- * Retrieves an array of external accounts for given NEAR Account ID
- * @param near NEAR Account ID
- * @returns Array of external accounts
+ * Retrieves a Map of all NEAR Account IDs by comments IDs
+ * @returns Map of all NEAR Account IDs by comments IDs
  */
-export function getExternalAccounts(near: string): string[] {
-  return externalByNear.contains(near) ? externalByNear.getSome(near) : [];
+export function getAll(): MapEntry<string, string[]>[] {
+  return accountsByCommentId.entries();
 }
 
 /**
- * Retrieves an array of NEAR Account IDs for given external account
- * @param account External account
+ * Retrieves an array of NEAR Account IDs for given comment ID
+ * @param commentId comment ID
  * @returns Array of NEAR Account IDs
  */
-export function getNearAccounts(account: string): string[] {
-  return nearByExternal.contains(account) ? nearByExternal.getSome(account) : [];
+export function getAccountsByCommentId(commentId: string): string[] {
+  return accountsByCommentId.contains(commentId) ? accountsByCommentId.getSome(commentId) : [];
 }
 
 // WRITE
 
 /**
- * Adds external account for NEAR Account ID
- * @param account External account
+ * Adds NEAR Account ID by comment ID
+ * @param commentId comment ID
  */
-export function addExternalAccount(account: string): void {
-  _insert(externalByNear, Context.sender, account);
-  _insert(nearByExternal, account, Context.sender);
+export function addLike(commentId: string): void {
+  _insert(accountsByCommentId, commentId, Context.sender);
 }
 
 /**
- * Removes external account for NEAR Account ID
- * @param account External account
+ * Removes NEAR Account ID by comment ID
+ * @param commentId comment ID
  */
-export function removeExternalAccount(account: string): void {
-  _delete(externalByNear, Context.sender, account);
-  _delete(nearByExternal, account, Context.sender);
+export function removeLike(commentId: string): void {
+  _delete(accountsByCommentId, commentId, Context.sender);
 }
 
 /**
  * Clears all storage of the contract (for development stage)
  */
 export function clearAll(): void {
-  externalByNear.clear();
-  nearByExternal.clear();
+  accountsByCommentId.clear();
 }
 
 // HELPERS
