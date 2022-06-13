@@ -27,6 +27,7 @@ export default class GitHubAdapter {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       contextBuilder: (searchNode: any): ContextBuilder => ({
         id: searchNode.querySelector('.timeline-comment-group')?.id,
+        page: document.location.origin + document.location.pathname,
         // title: searchNode.querySelector('h3')?.textContent,
         // link: searchNode.querySelector('.yuRUbf > a')?.href,
         // description:

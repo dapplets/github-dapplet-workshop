@@ -1,5 +1,48 @@
+@font-face {
+  font-family: 'Segoe UI Regular';
+  src: url('./assets/fonts/SegoeUIRegular/SegoeUI.eot');
+  src: url('./assets/fonts/SegoeUIRegular/SegoeUI.eot?#iefix') format('embedded-opentype'),
+  url('./assets/fonts/SegoeUIRegular/SegoeUI.woff') format('woff'),
+  url('./assets/fonts/SegoeUIRegular/SegoeUI.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   background-color: #fff !important;
   margin: 0 !important;
-  padding: 10px !important;
+  padding: 0 !important;
+  font-family: 'Segoe UI Regular';
+}
+
+.title {
+  margin: 10px 20px 20px;
+}
+
+h1.base {
+  font-size: 24px;
+  line-height: 32px;
+
+  color: #121212;
+}
+
+h2.base {
+  font-size: 18px;
+  line-height: 24px;
+
+  color: #121212;
+}
+
+h3.base {
+  font-size: 16px;
+  line-height: 21px;
+  
+  color: #747376;
+}
+
+h4.base {
+  font-size: 14px;
+  line-height: 18px;
+
+  color: #121212;
 }

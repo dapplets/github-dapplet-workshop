@@ -6,8 +6,8 @@
   "homepage": "https://dapplets.org",
   "license": "MIT",
   "scripts": {
-    "postinstall": "concurrently -c \"yellow,magenta,blue,green\" -n \"adapter,dapplet,overlay,contract\" \"cd adapter && npm i\" \"cd dapplet-feature && npm i\" \"cd overlay && npm i\" \"cd near-contract && npm i\"",
-    "start": "concurrently -c \"yellow,magenta,blue\" -n \"adapter,dapplet,overlay\" \"cd adapter && npm start\" \"cd dapplet-feature && npm start\" \"cd overlay && npm start\"",
+    "postinstall": "concurrently -c \"yellow,magenta,blue,green\" -n \"adapter,dapplet,overlay,contract\" \"cd adapter && npm i\" \"cd dapplet && npm i\" \"cd overlay && npm i\" \"cd near-contract && npm i\"",
+    "start": "concurrently -c \"yellow,magenta,blue\" -n \"adapter,dapplet,overlay\" \"cd adapter && npm start\" \"cd dapplet && npm start\" \"cd overlay && npm start\"",
     "prettify": "npx prettier --write .",
     "lint": "npx eslint ."
   },

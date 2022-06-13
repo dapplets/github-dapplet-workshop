@@ -1,0 +1,21 @@
+{
+  "name": { "$ref": "package.json#/name" },
+  "branch": "default",
+  "version": { "$ref": "package.json#/version" },
+  "type": "FEATURE",
+  "title": "GitHub Dapplet",
+  "description": { "$ref": "package.json#/description" },
+  "main": { "$ref": "package.json#/main" },
+  "icon": "src/icons/logo.png",
+  "contextIds": ["github-adapter-example.dapplet-base.eth"],
+  "config": {
+    "schema": "config/schema.json",
+    "default": "config/default.json"
+  },
+  "dependencies": {
+    "github-adapter-example.dapplet-base.eth": "0.1.0"
+  },
+  "overlays": {
+    "github-dapplet-overlay": "https://localhost:3000"
+  }
+}
