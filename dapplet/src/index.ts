@@ -124,14 +124,13 @@ export default class GoogleFeature {
     // WIDGETS
 
     this.adapter.attachConfig({
-      ISSUE: (ctx) => {
+      ISSUE_COMMENT: (ctx) => {
 
         return button({
           initial: 'DEFAULT',
           DEFAULT: {
             label: state[ctx.id].counter,
             img: LOGO,
-            tooltip: 'Hi, friend!',
             isActive: state[ctx.id].isActive,
             exec: async (_, me) => {
               let name = state.global.userAccount.value;

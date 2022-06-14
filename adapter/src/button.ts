@@ -68,7 +68,6 @@ export class Button extends LitElement implements IButtonProps {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            /* text-fill-color: transparent; */
         }
 
         .dapplet-widget-results.active.changed > div {
@@ -91,28 +90,24 @@ export class Button extends LitElement implements IButtonProps {
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-                text-fill-color: transparent;
             }
             20% {
                 background: linear-gradient(149.06deg, rgba(128, 40, 198, 0.2) 13%, rgba(54, 49, 112, 0.2) 111.18%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-                text-fill-color: transparent;
             }
             80% {
                 background: linear-gradient(149.06deg, rgba(128, 40, 198, 0.2) 13%, rgba(54, 49, 112, 0.2) 111.18%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-                text-fill-color: transparent;
             }
             100% {
                 background: linear-gradient(149.06deg, #8028C6 13%, #363170 111.18%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-                text-fill-color: transparent;
             }
         }
 
@@ -122,28 +117,24 @@ export class Button extends LitElement implements IButtonProps {
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-                text-fill-color: transparent;
             }
             20% {
                 background: linear-gradient(149.06deg, rgba(128, 40, 198, 0.2) 13%, rgba(54, 49, 112, 0.2) 111.18%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-                text-fill-color: transparent;
             }
             80% {
                 background: linear-gradient(149.06deg, rgba(128, 40, 198, 0.2) 13%, rgba(54, 49, 112, 0.2) 111.18%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-                text-fill-color: transparent;
             }
             100% {
                 background: #57606A;
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-                text-fill-color: transparent;
             }
         }
 
@@ -153,7 +144,6 @@ export class Button extends LitElement implements IButtonProps {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            /* text-fill-color: transparent; */
         }
 
         .dapplet-widget-results.inactive.changed::before,
@@ -165,7 +155,6 @@ export class Button extends LitElement implements IButtonProps {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            /* text-fill-color: transparent; */
 
             opacity: 0;
             animation-name: up-and-down;
@@ -197,7 +186,7 @@ export class Button extends LitElement implements IButtonProps {
     `;
     
     public static contextInsPoints = {
-        ISSUE: 'ISSUE',
+        ISSUE_COMMENT: 'HEADER_BUTTONS',
     };
     
     @property() state;

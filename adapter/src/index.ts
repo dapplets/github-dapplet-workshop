@@ -15,11 +15,11 @@ export default class GitHubAdapter {
     button: this.adapter.createWidgetFactory(Button),
   });
   public config = {
-    ISSUE: {
+    ISSUE_COMMENT: {
       containerSelector: '.js-discussion.js-socket-channel',
       contextSelector: '.TimelineItem.js-comment-container',
       insPoints: {
-        ISSUE: {
+        HEADER_BUTTONS: {
           selector: '.timeline-comment-actions',
           insert: 'end'
         },
