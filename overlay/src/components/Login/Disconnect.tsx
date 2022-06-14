@@ -20,7 +20,7 @@ export const Disconnect: FC<DisconnectProps> = (props: DisconnectProps) => {
         <img src={avatar} alt="avatar"/>
       </div>
       {name  && (<div className={cn(styles.name, name.length > 23 ? styles.h2 : styles.h1)}>
-        <p>{minimizeName(name)}</p>
+        <p>{minimizeName(name, 28)}</p>
       </div>)}
       <button className={styles.buttonLogout} onClick={onLogout}>
         <svg width="40" height="41" viewBox="0 0 40 41" fill="none" xmlns="http://www.w3.org/2000/svg">

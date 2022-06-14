@@ -32,7 +32,12 @@ export const Item: FC<ItemProps> = (props: ItemProps) => {
         </a>
       </div>
       {isOpened && (<div className={styles.itemSecond}>
-        {accounts.map((account, i) => <a key={i} href={`https://explorer.testnet.near.org/accounts/${account}`} target='_blank'>{minimizeName(account)}</a>)}
+        {accounts.map((account, i) => (<a
+          key={i}
+          // href={`https://explorer.testnet.near.org/accounts/${account}`} // NEAR
+          href={`https://goerli.etherscan.io/address/${account}`} // Ethereum
+          target='_blank'>{minimizeName(account, 26)}
+        </a>))}
       </div>)}
 		</div>
 	);

@@ -8,8 +8,7 @@
     "help": "hardhat --help",
     "test": "hardhat test",
     "build": "hardhat compile",
-    "deploy:listings:goerli": "hardhat run scripts/deploy-listings.js --network goerli",
-    "deploy:merge:goerli": "hardhat run scripts/deploy-merge.js --network goerli",
+    "deploy": "hardhat run scripts/sample-script.js --network goerli",
     "size": "hardhat size-contracts"
   },
   "author": "Dapplets Project",
@@ -18,6 +17,7 @@
     "@nomiclabs/hardhat-ethers": "^2.0.6",
     "@nomiclabs/hardhat-waffle": "^2.0.3",
     "chai": "^4.3.6",
+    "dotenv": "^16.0.1",
     "ethereum-waffle": "^3.4.4",
     "ethers": "^5.6.8",
     "hardhat": "^2.9.7"
