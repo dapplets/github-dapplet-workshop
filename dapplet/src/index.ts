@@ -6,6 +6,7 @@ interface IStorage {
   likes: string[]
   counter: number
   link: string
+  isActive: boolean
   userAccount: string
 }
 
@@ -21,7 +22,32 @@ export default class GoogleFeature {
 
   async activate(): Promise<void> {
     const { button } = this.adapter.exports;
-    const state = Core.state<IStorage>({ likes: [], counter: 0, link: '', userAccount: '' });
+    const state = Core.state<IStorage>(
+      { 
+        likes: [],
+        counter: 0,
+        link: '',
+        isActive: false,
+        userAccount: ''
+      }
+    );
+
+
+    // LOGIN
+
+    const prevSessions = await Core.sessions();
+    // const prevSession = prevSessions.find(x => x.authMethod === 'near/testnet'); // NEAR
+    const prevSession = prevSessions.find(x => x.authMethod === 'ethereum/goerli'); // Ethereum
+    if (prevSession) {
+      const wallet = await prevSession.wallet();
+      // state.global.userAccount.next(wallet.accountId); // NEAR
+
+      const accountIds = await wallet.request({ method: 'eth_accounts', params: [] }); // Ethereum
+      state.global.userAccount.next(accountIds[0]); // Ethereum
+    }
+
+
+    // CONTRACTS
 
     const nearContract = await Core.contract(
       'near',
@@ -43,6 +69,7 @@ export default class GoogleFeature {
     const allCommentsFromContract = await ethereumContract.getAll(); // Ethereum
     console.log('allCommentsFromNear', allCommentsFromContract);
 
+    const currentAccount = state.global.userAccount.value.toLowerCase();
     for (const pair of allCommentsFromContract) {
       // const { key, value } = pair; // NEAR
       const [key, value] = pair; // Ethereum
@@ -50,18 +77,13 @@ export default class GoogleFeature {
       state[id].likes.next(value);
       state[id].counter.next(value.length);
       state[id].link.next(key);
+      state[id].isActive.next(
+        value.map(x => x.toLowerCase()).includes(currentAccount)
+      );
     }
 
-    const prevSessions = await Core.sessions();
-    // const prevSession = prevSessions.find(x => x.authMethod === 'near/testnet'); // NEAR
-    const prevSession = prevSessions.find(x => x.authMethod === 'ethereum/goerli'); // Ethereum
-    if (prevSession) {
-      const wallet = await prevSession.wallet();
-      // state.global.userAccount.next(wallet.accountId); // NEAR
 
-      const accountIds = await wallet.request({ method: 'eth_accounts', params: [] }); // Ethereum
-      state.global.userAccount.next(accountIds[0]); // Ethereum
-    }
+    // OVERLAY
 
     const overlay = Core.overlay<IBridge>({ name: 'github-dapplet-overlay', title: 'GitHub Dapplet' })
       .useState(state)
@@ -80,6 +102,8 @@ export default class GoogleFeature {
 
             const accountIds = await wallet.request({ method: 'eth_accounts', params: [] }); // Ethereum
             state.global.userAccount.next(accountIds[0]); // Ethereum
+
+            changeIsActiveStates(state);
           } catch (err) {
             console.log('Login was denied', err);
           }
@@ -89,10 +113,15 @@ export default class GoogleFeature {
           const sessions = await Core.sessions();
           sessions.forEach(x => x.logout());
           state.global.userAccount.next('');
+
+          changeIsActiveStates(state);
         }
       });
 
     Core.onAction(() => overlay.open());
+
+
+    // WIDGETS
 
     this.adapter.attachConfig({
       ISSUE: (ctx) => {
@@ -103,7 +132,7 @@ export default class GoogleFeature {
             label: state[ctx.id].counter,
             img: LOGO,
             tooltip: 'Hi, friend!',
-            isActive: state[ctx.id].likes.value.map(x => x.toLowerCase()).includes(state.global.userAccount.value.toLowerCase()),
+            isActive: state[ctx.id].isActive,
             exec: async (_, me) => {
               let name = state.global.userAccount.value;
               if (name === '') {
@@ -118,8 +147,10 @@ export default class GoogleFeature {
                 const accountIds = await wallet.request({ method: 'eth_accounts', params: [] }); // Ethereum
                 state.global.userAccount.next(accountIds[0]); // Ethereum
                 name = wallet.accountIds[0]; // Ethereum
+
+                changeIsActiveStates(state);
               }
-              const { likes, counter, link } = state[ctx.id];
+              const { likes, counter, link, isActive } = state[ctx.id];
               if (!likes.value.map(x => x.toLowerCase()).includes(name.toLowerCase())) {
                 try {
                   // await nearContract.addLike({ commentId: ctx.page + '#' + ctx.id }); // NEAR
@@ -129,7 +160,7 @@ export default class GoogleFeature {
                   likes.next(newValue);
                   counter.next(counter.value + 1);
                   link.next(ctx.page + '#' + ctx.id);
-                  me.isActive = true;
+                  isActive.next(true);
                 } catch (err) {
                   console.log('Error calling addLike():', err);
                 }
@@ -141,7 +172,7 @@ export default class GoogleFeature {
                   const newValue = likes.value.filter(x => x !== name);
                   likes.next(newValue);
                   counter.next(counter.value - 1);
-                  me.isActive = false;
+                  isActive.next(false);
                 } catch (err) {
                   console.log('Error calling removeLike():', err);
                 }
@@ -152,4 +183,15 @@ export default class GoogleFeature {
       }
     });
   }
+}
+
+const changeIsActiveStates = (state: any) => {
+  const commentsInState = state.getAll();
+  delete commentsInState.global;
+  const currentAccount = state.global.userAccount.value.toLowerCase();
+  Object.entries(commentsInState).forEach(([id, commentData]: [id: string, commentData: IStorage]) => {
+    if (commentData.likes.map(x => x.toLowerCase()).includes(currentAccount) !== commentData.isActive) {
+      state[id].isActive.next(!commentData.isActive);
+    }
+  });
 }

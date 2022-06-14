@@ -210,7 +210,7 @@ export class Button extends LitElement implements IButtonProps {
     @property() hidden: boolean;
     @property() tooltip: string;
     @property() isActive: boolean;
-    @property() exec: (ctx: any, me: IButtonProps) => void;
+    @property() exec: (ctx: any, me: IButtonProps) => Promise<void>;
     @property() init: (ctx: any, me: IButtonProps) => void;
     
     connectedCallback() {
@@ -220,10 +220,13 @@ export class Button extends LitElement implements IButtonProps {
 
     private _stateChanged: boolean = false;
     
-    private _clickHandler(e) {
+    private async _clickHandler(e: any) {
         e.stopPropagation();
         if (!this._stateChanged) this._stateChanged = true;
-        this.exec?.(this.ctx, this.state);
+        await this.exec?.(this.ctx, this.state);
+        setTimeout(() => {
+            this._stateChanged = false;
+        }, 2000);
     }
 
     override render() {
