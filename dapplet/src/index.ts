@@ -16,12 +16,14 @@ interface IBridge {
 }
 
 @Injectable
-export default class GoogleFeature {
+export default class GitHubDapplet {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   @Inject('github-adapter-example.dapplet-base.eth') public adapter: any;
 
   async activate(): Promise<void> {
-    const { button } = this.adapter.exports;
+
+    // STATE
+
     const state = Core.state<IStorage>(
       { 
         likes: [],
@@ -33,7 +35,7 @@ export default class GoogleFeature {
     );
 
 
-    // LOGIN
+    // GET ACCOUNT ID
 
     const prevSessions = await Core.sessions();
     // const prevSession = prevSessions.find(x => x.authMethod === 'near/testnet'); // NEAR
@@ -123,16 +125,17 @@ export default class GoogleFeature {
 
     // WIDGETS
 
-    this.adapter.attachConfig({
-      ISSUE_COMMENT: (ctx) => {
+    const { button } = this.adapter.exports;
 
-        return button({
+    this.adapter.attachConfig({
+      ISSUE_COMMENT: (ctx) => 
+        button({
           initial: 'DEFAULT',
           DEFAULT: {
             label: state[ctx.id].counter,
             img: LOGO,
             isActive: state[ctx.id].isActive,
-            exec: async (_, me) => {
+            exec: async () => {
               let name = state.global.userAccount.value;
               if (name === '') {
                 // const session = prevSession ?? await Core.login({ authMethods: ['near/testnet'], target: overlay }); // NEAR
@@ -178,8 +181,7 @@ export default class GoogleFeature {
               }
             },
           },
-        });
-      }
+        })
     });
   }
 }
