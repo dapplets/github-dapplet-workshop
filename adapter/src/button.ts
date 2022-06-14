@@ -71,14 +71,14 @@ export class Button extends LitElement implements IButtonProps {
             text-fill-color: transparent;
         }
 
-        .dapplet-widget-results.active > div {
+        .dapplet-widget-results.active.changed > div {
             animation-name: change-color;
             animation-timing-function: ease-in-out;
             animation-duration: 1.5s;
             animation-iteration-count: 1;
         }
 
-        .dapplet-widget-results.inactive > div {
+        .dapplet-widget-results.inactive.changed > div {
             animation-name: change-color-reverse;
             animation-timing-function: ease-in-out;
             animation-duration: 1.5s;
@@ -156,8 +156,8 @@ export class Button extends LitElement implements IButtonProps {
             text-fill-color: transparent;
         }
 
-        .dapplet-widget-results.inactive::before,
-        .dapplet-widget-results.active::after {
+        .dapplet-widget-results.inactive.changed::before,
+        .dapplet-widget-results.active.changed::after {
             position: absolute;
             right: 6px;
 
@@ -174,11 +174,11 @@ export class Button extends LitElement implements IButtonProps {
             animation-iteration-count: 1;
         }
 
-        .dapplet-widget-results.active::after {
+        .dapplet-widget-results.active.changed::after {
             content: '+1';
         }
 
-        .dapplet-widget-results.inactive::before {
+        .dapplet-widget-results.inactive.changed::before {
             content: '-1';
         }
 
@@ -218,11 +218,11 @@ export class Button extends LitElement implements IButtonProps {
         this.init?.(this.ctx, this.state);
     }
 
-    private _inactive: boolean;
+    private _stateChanged: boolean = false;
     
     private _clickHandler(e) {
         e.stopPropagation();
-        this._inactive = this.isActive ? true : false;
+        if (!this._stateChanged) this._stateChanged = true;
         this.exec?.(this.ctx, this.state);
     }
 
@@ -232,7 +232,7 @@ export class Button extends LitElement implements IButtonProps {
         return html`
             <div
                 @click=${this._clickHandler}
-                class="dapplet-widget-results ${this.isActive ? 'active' : this._inactive === undefined || !this._inactive ? '' : 'inactive'}"
+                class="dapplet-widget-results ${this.isActive ? 'active' : 'inactive'} ${this._stateChanged ? 'changed' : ''}"
                 title="${this.tooltip}"
             >
                 <img src="${this.img}" />
