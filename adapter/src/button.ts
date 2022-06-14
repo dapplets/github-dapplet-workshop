@@ -68,7 +68,7 @@ export class Button extends LitElement implements IButtonProps {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-fill-color: transparent;
+            /* text-fill-color: transparent; */
         }
 
         .dapplet-widget-results.active.changed > div {
@@ -153,7 +153,7 @@ export class Button extends LitElement implements IButtonProps {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-fill-color: transparent;
+            /* text-fill-color: transparent; */
         }
 
         .dapplet-widget-results.inactive.changed::before,
@@ -165,7 +165,7 @@ export class Button extends LitElement implements IButtonProps {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-fill-color: transparent;
+            /* text-fill-color: transparent; */
 
             opacity: 0;
             animation-name: up-and-down;
