@@ -67,7 +67,7 @@ export default class GoogleFeature {
 
     // const allCommentsFromContract = await nearContract.getAll(); // NEAR
     const allCommentsFromContract = await ethereumContract.getAll(); // Ethereum
-    console.log('allCommentsFromNear', allCommentsFromContract);
+    console.log('allCommentsFromContract', allCommentsFromContract);
 
     const currentAccount = state.global.userAccount.value.toLowerCase();
     for (const pair of allCommentsFromContract) {
