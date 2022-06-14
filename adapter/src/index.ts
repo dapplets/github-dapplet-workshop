@@ -1,5 +1,5 @@
 import { IFeature } from '@dapplets/dapplet-extension';
-import { Button } from './button';
+// import Widgets
 
 type ContextBuilder = {
   [propName: string]: string;
@@ -12,22 +12,22 @@ type Exports = {
 @Injectable
 export default class GitHubAdapter {
   public exports = (): Exports => ({
-    button: this.adapter.createWidgetFactory(Button),
+    button: '', // use this.adapter.createWidgetFactory(<SOME_WIDGET>)
   });
   public config = {
     ISSUE_COMMENT: {
-      containerSelector: '.js-discussion.js-socket-channel',
-      contextSelector: '.TimelineItem.js-comment-container',
+      containerSelector: '',
+      contextSelector: '',
       insPoints: {
         HEADER_BUTTONS: {
-          selector: '.timeline-comment-actions',
-          insert: 'end'
+          selector: '',
+          insert: ''
         },
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       contextBuilder: (searchNode: any): ContextBuilder => ({
-        id: searchNode.querySelector('.timeline-comment-group')?.id,
-        page: document.location.origin + document.location.pathname,
+        id: '',
+        // ... some other parameters that we need in dapplets
       }),
     },
   };
