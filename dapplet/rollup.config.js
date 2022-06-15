@@ -10,7 +10,7 @@ const showAddress = () => ({
   load: () =>
     console.log(
       '\x1b[35m%s\x1b[0m',
-      `Current registry address: https://localhost:3001/dapplet.json`,
+      `Current registry address: http://localhost:3001/dapplet.json`,
     ),
 });
 
@@ -32,13 +32,13 @@ export default [
       image(),
       serve({
         port: 3001,
-        https: {
-          key: fs.readFileSync('src/server/secret/server.key'),
-          cert: fs.readFileSync('src/server/secret/server.cert'),
-        },
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
+        // https: {
+        //   key: fs.readFileSync('src/server/secret/server.key'),
+        //   cert: fs.readFileSync('src/server/secret/server.cert'),
+        // },
+        // headers: {
+        //   'Access-Control-Allow-Origin': '*',
+        // },
       }),
       showAddress(),
     ],
