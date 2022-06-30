@@ -34,16 +34,8 @@ contract GitHubDapplet {
 
         return result;
     }
+    
 
-    /**
-    * Optimized gas cost of the function by
-    * adding _isVotedFor mapping and removing the loop
-    * also shorten revert message to 31 bytes,
-    * cause message more than 32 bytes costs extra gas
-    * Also there was a logic issue, when pushing to commentIds array,
-    * there might be duplicates, so getAll function may return wrong result
-    * solved by adding _isAlreadyAdded mapping
-    */
     function addLike(string memory commentId) external {
         require( 
             !_isVotedFor[msg.sender][commentId],
